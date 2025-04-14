@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Change a point color</title>
+  </head>
+
+  <body onload="main()">
+    <canvas id="webgl" width="400" height="400">
+    Please use a browser that supports "canvas"
+    </canvas>
+    <img src="kirby.jpeg" width="400" height="400">
+
+
+    <p id="numdot">---</p>
+
+    <br>
+
+    <button type="button" id="red">Red</button>
+    <button type="button" id="green">Green</button>
+    <button type="button" id="blue">Blue</button>
+    <button type="button" id="clear">Clear</button>
+
+    <br>
+    <br>
+
+    <button type="button" id="point">Point</button>
+    <button type="button" id="triangle">Triangle</button>
+    <button type="button" id="circle">Circle</button>
+    <button type="button" id="paint">Paint</button>
+ 
+    <br>
+
+    <table>
+        <tr>
+            <td>
+                Red
+            </td>
+            <td>
+                <input type="range" min="0" max="100" valu="100" class="slider" id="redSlider"><br>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Green
+            </td>
+            <td>
+                <input type="range" min="0" max="100" valu="0" class="slider" id="greenSlider"><br>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Blue
+            </td>
+            <td>
+                <input type="range" min="0" max="100" valu="0" class="slider" id="blueSlider"><br>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Size
+            </td>
+            <td>
+                <input type="range" min="0" max="100" valu="0" class="slider" id="sizeSlider"><br>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Segments (Circle Only)
+            </td>
+            <td>
+                <input type="range" min="1" max="100" valu="0" class="slider" id="segSlider"><br>
+            </td>
+        </tr>
+    </table>
+    <br>
+
+    <script src="../lib/webgl-utils.js"></script>
+    <script src="../lib/webgl-debug.js"></script>
+    <script src="../lib/cuon-utils.js"></script>
+    <script src="Point.js"></script>
+    <script src="Triangle.js"></script>
+    <script src="Circle.js"></script>
+    <script src="ColoredPoints.js"></script>
+  </body>
+</html>
