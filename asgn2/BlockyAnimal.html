@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Change a point color</title>
+  </head>
+
+  <body onload="main()">
+    <canvas id="webgl" width="400" height="400">
+    Please use a browser that supports "canvas"
+    </canvas>
+
+    <p id="numdot">---</p>
+
+    <br>
+
+    <button type="button" id="red">XRed</button>
+    <button type="button" id="green">XGreen</button>
+    <button type="button" id="blue">XBlue</button>
+    <button type="button" id="clear">XClear</button>
+
+    <br>
+    <br>
+
+    <button type="button" id="point">XPoint</button>
+    <button type="button" id="triangle">XTriangle</button>
+    <button type="button" id="circle">XCircle</button>
+    <button type="button" id="paint">XPaint</button>
+ 
+    <br>
+
+    <table>
+        <tr>
+            <td>
+                XRed
+            </td>
+            <td>
+                <input type="range" min="0" max="100" valu="100" class="slider" id="redSlider"><br>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                XGreen
+            </td>
+            <td>
+                <input type="range" min="0" max="100" valu="0" class="slider" id="greenSlider"><br>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                XBlue
+            </td>
+            <td>
+                <input type="range" min="0" max="100" valu="0" class="slider" id="blueSlider"><br>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Yellow
+            </td>
+            <td>
+                <input type="range" min="-45" max="45" valu="5" class="slider" id="yellowSlider"><br>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Camera Angle
+            </td>
+            <td>
+                <input type="range" min="0" max="90" valu="5" class="slider" id="rotateSlider"><br>
+            </td>
+        </tr>
+    </table>
+    <br>
+
+    <script src="../lib/webgl-utils.js"></script>
+    <script src="../lib/webgl-debug.js"></script>
+    <script src="../lib/cuon-utils.js"></script>
+    <script src="../lib/cuon-matrix.js"></script>
+    <script src="Point.js"></script>
+    <script src="Triangle.js"></script>
+    <script src="Circle.js"></script>
+    <script src="Cube.js"></script>
+    <script src="BlockyAnimal.js"></script>
+  </body>
+</html>
