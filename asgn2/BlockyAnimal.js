@@ -314,6 +314,7 @@ function renderAllShapes(){
   right_backfoot.render();
 
   var neck = new Cube();
+  neck.matrix.rotate(-g_yellowAngle, 1, 0, 0)
   neck.color = [.5, .4, 0, 1.0];
   neck.matrix.translate(-.15, 0, -.5)
   var n_m = new Matrix4(neck.matrix);
