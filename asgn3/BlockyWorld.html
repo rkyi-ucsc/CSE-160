@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Blocky World</title>
+  </head>
+  <body onload="main()">
+    <canvas id="webgl" width="500" height="500">
+      Please use a browser that supports "canvas"
+    </canvas>
+
+    <p id="performance">XXX</p>
+
+    <p>
+      The world is cast in darkness, the earth is in turmoil and the terrain is rising in rock and fire! Explore your new surroundings!
+    </p><br><br>
+    <p>MOVE: WASD,   LOOK AROUND: QE or MOUSE</p>
+
+    <script src="../lib/webgl-utils.js"></script>
+    <script src="../lib/webgl-debug.js"></script>
+    <script src="../lib/cuon-utils.js"></script>
+    <script src="../lib/cuon-matrix-cse160.js"></script>
+
+    <script src="Triangle.js"></script>
+    <script src="Cube.js"></script>
+    <script src="Pyramid.js"></script>
+    <script src="Camera.js"></script>
+
+    <script src="BlockyWorld.js"></script>
+  </body>
+</html>
