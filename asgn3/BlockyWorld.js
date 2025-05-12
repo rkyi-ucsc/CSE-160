@@ -266,7 +266,7 @@ function initTextures(gl, n) {
   image.onload = function(){ sendTextureToTEXTURE0(image);};
   // Tell the browser to load an image
 
-  image.src = './resources/universe_resized.jpg';
+  image.src = 'resources/universe_resized.jpg';
 
   var image2 = new Image();  // Create the image object
   if (!image2) {
@@ -641,7 +641,7 @@ var g_seconds = performance.now()/1000.0-g_startTime;
 
 function tick() {
     g_seconds=performance.now()/1000.0-g_startTime;
-    console.log(performance.now());
+    //console.log(performance.now());
 
     renderScene();
 
