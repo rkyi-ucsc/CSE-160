@@ -266,7 +266,7 @@ function initTextures(gl, n) {
   image.onload = function(){ sendTextureToTEXTURE0(image);};
   // Tell the browser to load an image
 
-  image.src = '../resources/universe_resized.jpg';
+  image.src = './resources/universe_resized.jpg';
 
   var image2 = new Image();  // Create the image object
   if (!image2) {
@@ -276,7 +276,7 @@ function initTextures(gl, n) {
   // Register the event handler to be called on loading an image
   image2.onload = function(){ sendTextureToTEXTURE1(image2);};
   // Tell the browser to load an image
-  image2.src = '../resources/gold_resized.jpg';
+  image2.src = './resources/gold_resized.jpg';
 
   var image3 = new Image();  // Create the image object
   if (!image3) {
@@ -286,7 +286,7 @@ function initTextures(gl, n) {
   // Register the event handler to be called on loading an image
   image3.onload = function(){ sendTextureToTEXTURE2(image3);};
   // Tell the browser to load an image
-  image3.src = '../resources/ice_resized.jpg';
+  image3.src = './resources/ice_resized.jpg';
 
   var image4 = new Image();  // Create the image object
   if (!image4) {
@@ -296,7 +296,7 @@ function initTextures(gl, n) {
   // Register the event handler to be called on loading an image
   image4.onload = function(){ sendTextureToTEXTURE3(image4);};
   // Tell the browser to load an image
-  image4.src = '../resources/rocks_resized.jpeg';  
+  image4.src = './resources/rocks_resized.jpeg';  
   
   var image5 = new Image();  // Create the image object
   if (!image5) {
@@ -306,7 +306,7 @@ function initTextures(gl, n) {
   // Register the event handler to be called on loading an image
   image5.onload = function(){ sendTextureToTEXTURE4(image5);};
   // Tell the browser to load an image
-  image5.src = '../resources/sky_resized.jpg';
+  image5.src = './resources/sky_resized.jpg';
 
   var image6 = new Image();  // Create the image object
   if (!image6) {
@@ -316,7 +316,7 @@ function initTextures(gl, n) {
   // Register the event handler to be called on loading an image
   image6.onload = function(){ sendTextureToTEXTURE5(image6);};
   // Tell the browser to load an image
-  image6.src = '../resources/daisy_resized.jpg';  
+  image6.src = './resources/daisy_resized.jpg';  
 
   var image7 = new Image();  // Create the image object
   if (!image7) {
@@ -326,7 +326,7 @@ function initTextures(gl, n) {
   // Register the event handler to be called on loading an image
   image7.onload = function(){ sendTextureToTEXTURE6(image7);};
   // Tell the browser to load an image
-  image7.src = '../resources/roses_resized.jpg';
+  image7.src = './resources/roses_resized.jpg';
 
   var image8 = new Image();  // Create the image object
   if (!image8) {
@@ -336,7 +336,7 @@ function initTextures(gl, n) {
   // Register the event handler to be called on loading an image
   image8.onload = function(){ sendTextureToTEXTURE7(image8);};
   // Tell the browser to load an image
-  image8.src = '../resources/lava_resized.jpg';  
+  image8.src = './resources/lava_resized.jpg';  
 
   var image9 = new Image();  // Create the image object
   if (!image9) {
@@ -346,7 +346,7 @@ function initTextures(gl, n) {
   // Register the event handler to be called on loading an image
   image9.onload = function(){ sendTextureToTEXTURE8(image9);};
   // Tell the browser to load an image
-  image9.src = '../resources/hydrangea_resized.jpg';  
+  image9.src = './resources/hydrangea_resized.jpg';  
 }
 
 // make sure to call renderScene() after the texture is loaded 
