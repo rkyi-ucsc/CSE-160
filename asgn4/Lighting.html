@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Lighting and Shaders</title>
+  </head>
+  <body onload="main()">
+    <canvas id="webgl" width="500" height="500">
+      Please use a browser that supports "canvas"
+    </canvas>
+
+    <br>
+    <button type="button" id="normalOn">Normals On</button>
+    <button type="button" id="normalOff">Normals Off</button>
+    <button type="button" id="cam1">Camera 1</button>
+    <button type="button" id="cam2">Camera 2</button>
+    <button type="button" id="camFlip">Flip Camera</button>
+    <br>
+    <button type="button" id="toggle">Toggle Light</button>
+    <br>
+    <table>
+      <tr>
+        <td>
+          Light X
+        </td>
+        <td>
+          <input type="range" min="-250" max="250" value="0" class="slider" id="lightSlideX">
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Light Y
+        </td>
+        <td>
+          <input type="range" min="-250" max="250" value="100" class="slider" id="lightSlideY">
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Light Z
+        </td>
+        <td>
+          <input type="range" min="-250"  max="250" value="-200" class="slider" id="lightSlideZ">
+        </td>
+      </tr>
+    </table>
+
+    <p id="performance">XXX</p>
+
+    <p>
+      The world is cast in darkness, the earth is in turmoil and the terrain is rising in rock and fire! Explore your new surroundings!
+    </p><br><br>
+    <p>MOVE: WASD,   LOOK AROUND: QE or MOUSE</p>
+
+    <script src="../lib/webgl-utils.js"></script>
+    <script src="../lib/webgl-debug.js"></script>
+    <script src="../lib/cuon-utils.js"></script>
+    <script src="../lib/cuon-matrix-cse160.js"></script>
+
+    <script src="Triangle.js"></script>
+    <script src="Cube.js"></script>
+    <script src="Pyramid.js"></script>
+    <script src="Camera.js"></script>
+    <script src="Sphere.js"></script>
+
+    <script src="Lighting.js"></script>
+  </body>
+</html>
