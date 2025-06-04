@@ -254,12 +254,12 @@
 
       // add ambient to at least make skybox barely visible
       const color = 0xFFFFFF;
-      const intensity = 0.1;
+      const intensity = 0.05;
       const light = new THREE.AmbientLight(color, intensity);
       scene.add(light);
 
       // light cast from sun
-      const sunLight = new THREE.PointLight(0xfffddb, 1, 25, .5);
+      const sunLight = new THREE.PointLight(0xfffddb, 10, 25, .5);
       sunLight.position.set(0, 0, 0);
       scene.add(sunLight);
 
