@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Three.js Lib</title>
+
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@v0.177.0/build/three.module.js",
+          "three/addons/": "https://cdn.jsdelivr.net/npm/three@v0.177.0/examples/jsm/"
+        }
+      }
+      </script>
+      <style>
+        #loading {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+        #loading .progress {
+          margin: 1.5em;
+          border: 1px solid white;
+          width: 50vw;
+        }
+        #loading .progressbar {
+          margin: 2px;
+          background: white;
+          height: 1em;
+          transform-origin: top left;
+          transform: scaleX(0);
+        }
+        .split {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 100%;
+          height: 100%;
+          display: flex;
+        }
+        .split>div {
+          width: 100%;
+          height: 100%;
+        }
+        p {
+          font-size: 78%;
+        }
+      </style>
+  </head>
+  
+  <script type="module">
+    //imports
+    import * as THREE from 'three';
+    import {OBJLoader} from 'three/addons/loaders/OBJLoader.js';
+    import { MTLLoader } from 'three/addons/loaders/MTLLoader.js';
+    import {OrbitControls} from 'three/addons/controls/OrbitControls.js';
+    import {GUI} from 'three/addons/libs/lil-gui.module.min.js';
+
+    let showBeam = false;
+    // visualize alien light
+    let spotHelper;
+
+
+    function main() {
+      document.getElementById('button').onclick = function(){
+        showBeam = !showBeam; 
+        renderer.render(scene, camera);
+        requestAnimationFrame(render);
+      }
+
+      //find canvas and create renderer
+      const canvas = document.querySelector('#c');
+      const renderer = new THREE.WebGLRenderer({antialias: true, canvas});
+
+      // basic perspective cam
+      const fov = 75;
+      const aspect = 2;  // the canvas default
+      const near = 0.1;
+      const far = 150;
+      const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
+      camera.position.y = 12;
+      camera.position.z = 10;
+      camera.lookAt(0, 0, 0);
+
+      //define scene
+      const scene = new THREE.Scene();
+
+      // primitive colors
+      const boxColor = new THREE.MeshPhongMaterial({color: 0xff0000});
+      const sphereColor = new THREE.MeshPhongMaterial({color: 0x00ff00});
+      const pyramidColor = new THREE.MeshPhongMaterial({color: 0x0000ff});
+
+
+      function makePyramid(r=1, material){
+        const PyramidRadius = r;
+        const pyramidGeo = new THREE.TetrahedronGeometry( PyramidRadius );
+        let shape = makeInstance(pyramidGeo, material)
+
+        return shape;
+      }
+
+      function makeSphere(r=1, ws=10, hs=10, material){
+        const SphereRadius = r;
+        const widthSegments = ws;
+        const heightSegments = hs;
+        const sphereGeo = new THREE.SphereGeometry( SphereRadius, widthSegments, heightSegments );
+
+        let shape = makeInstance(sphereGeo, material)
+
+        return shape;
+      }
+
+      function makeBox(w=1, h=1, d=1, material) {
+        const boxWidth = w;
+        const boxHeight = h;
+        const boxDepth = d;
+        const boxGeo = new THREE.BoxGeometry(boxWidth, boxHeight, boxDepth);
+
+        let shape = makeInstance(boxGeo, material);
+
+        return shape;
+      }
+
+      // theres only ever gonna be one so, no need for vars
+      function makeBlackHole(material) {
+        const radius =  2.8;  
+        const tubeRadius =  1.5;  
+        const radialSegments = 8;  
+        const tubularSegments =  51;  
+        const p = 10;  
+        const q = 7;  
+
+        const geometry = new THREE.TorusKnotGeometry(radius, tubeRadius, tubularSegments, radialSegments, p, q );
+
+        let shape = makeInstance(geometry, material);
+
+        return shape;
+      }
+
+      //Texturing
+      const loader = new THREE.TextureLoader();
+      const sunTexture = loader.load( 'resources/images/sun.jpg' );
+      const skyTexture = loader.load( 'resources/universe_resized.jpg' );
+      sunTexture.colorSpace = THREE.SRGBColorSpace;
+
+
+      const skyMaterial = new THREE.MeshPhongMaterial({
+        map: skyTexture,
+        side: THREE.BackSide,
+      });
+
+      const sunMaterial = new THREE.MeshBasicMaterial({
+        map: sunTexture,
+      });
+
+      const starMaterial = new THREE.MeshPhongMaterial({
+        emissive:  0xffef91,
+      })
+
+      const earthMaterial = new THREE.MeshPhongMaterial({
+        color: 0x1111FF,
+        emissive: 0x112244,
+      })
+
+      const moonMaterial = new THREE.MeshPhongMaterial({
+        color: 0xa4a4a4,
+        emissive: 0x000000,
+      })
+
+      const pyramidMaterial = new THREE.MeshPhongMaterial({
+        color: 0x4eb96d,
+        emissive: 0x2d6b3f,
+      })
+
+      const blackHoleMaterial0 = new THREE.MeshPhongMaterial({
+        color: 0x000000,
+      })
+
+      const blackHoleMaterial1 = new THREE.MeshPhongMaterial({
+        color: 0xe163e6,
+        emissive: 0xe163e6,
+        emissiveIntensity: 0.2,    
+        transparent: true,
+        opacity: 0.2, 
+        blending: THREE.AdditiveBlending,
+        depthWrite: false
+      })
+
+
+      // sky and sun
+      const skybox = makeSphere(50, 100, 100, skyMaterial);
+
+      const sun = makeSphere(2.5, 20, 20, sunMaterial);
+      const negSun = makeSphere(0.1, 1, 1, 0xFFFFFF); //allows objects to root to an object with opposite rotation
+
+
+      // earth and moon
+      const earth = makeSphere(1, 20, 20, earthMaterial);
+      updateParent(earth, sun);
+      earth.position.set(10, 0, 0);
+
+      const moon = makeSphere(0.5, 10, 10, moonMaterial);
+      updateParent(moon, earth);
+      moon.position.set(2, 0, 0);
+
+      const alien = makePyramid(0.8, pyramidMaterial);
+      updateParent(alien, negSun);
+      alien.position.set(7.5, 0, 0)
+
+      const alienRoot = makeBox(0.1, 0.1, 0.1, boxColor);
+      updateParent(alienRoot, negSun);  //create centered orbit around alien
+      alienRoot.position.set(7.5, 0, 0)
+
+      const ALTarget = new THREE.Object3D();
+      updateParent(ALTarget, alienRoot);  //orbit horizontally around like a lighthouse
+      ALTarget.position.set(5, 0, 0);
+
+      const rocketRoot = makeBox(0.1, 0.1, 0.1, boxColor);
+
+
+      // Generate Stars
+      const numStars = 200;
+      for (let i=0; i < numStars; i++) {
+        const star = makeSphere(0.4, 10, 10, starMaterial);
+
+
+        const theta = Math.random() * 2 * Math.PI;
+        const phi = Math.acos(2 * Math.random() - 1);
+        const r = Math.cbrt(Math.random() * (50**3 - 15**3) + 15**3); //cube root guarentees good distribution in sky, 15 units away from (0,0,0)
+
+        // spherical coordinates;
+        const randX = r * Math.sin(phi) * Math.cos(theta);
+        const randY = r * Math.sin(phi) * Math.sin(theta);
+        const randZ = r * Math.cos(phi);
+
+        positionInstance(star, randX, randY, randZ)
+      };
+
+      //Generate black hole and halo
+      const blackHole = makeBlackHole(blackHoleMaterial0);
+      updateParent(blackHole, negSun);
+      positionInstance(blackHole, 45, 0, 0);
+      blackHole.rotation.x = 150;
+
+      const halo = makeBlackHole(blackHoleMaterial1);
+      updateParent(halo, blackHole);
+      halo.scale.set(1.2, 1.2 ,1.2);
+      
+
+      // add ambient to at least make skybox barely visible
+      const color = 0xFFFFFF;
+      const intensity = 0.1;
+      const light = new THREE.AmbientLight(color, intensity);
+      scene.add(light);
+
+      // light cast from sun
+      const sunLight = new THREE.PointLight(0xfffddb, 1, 25, .5);
+      sunLight.position.set(0, 0, 0);
+      scene.add(sunLight);
+
+      // spotlight from alien ship
+      const alienLight = new THREE.SpotLight(0x2dff6a, 50, 15, Math.PI / 12, 0.3, 0);
+      alienRoot.add(alienLight);
+      alienLight.position.set(0, 0, 0);
+      alienLight.target = ALTarget;
+      alienRoot.add(alienLight.target);
+
+      //visualize alien beam
+      spotHelper = new THREE.SpotLightHelper(alienLight);
+      scene.add(spotHelper);
+      spotHelper.visible = showBeam;
+
+      // Rocket pulled from https://free3d.com/3d-model/cartoon-rocket-878331.html
+      const mtlLoader = new MTLLoader();
+      mtlLoader.load('resources/models/rocket/rocket.mtl', (materials) => {
+        materials.preload();
+
+        const objLoader = new OBJLoader();
+        objLoader.setMaterials(materials);
+        objLoader.load('resources/models/rocket/rocket.obj', (rocket) => {
+          rocketRoot.add(rocket);
+          rocket.position.set(0, 5, 0); // Adjust position as needed
+          rocket.scale.set(0.2, 0.2, 0.2);
+          rocket.rotation.x = -90;
+        });
+      });
+
+
+      // Orbital Controls
+      const controls = new OrbitControls(camera, canvas);
+      controls.target.set(0, 0, 0);
+      controls.minDistance = 5;
+      controls.maxDistance = 55;
+      controls.update();
+
+
+      // Add Shapes
+      function makeInstance(geometry, material) {
+        const shape = new THREE.Mesh(geometry, material);
+        scene.add(shape);
+ 
+        return shape;
+      }
+
+      // Position Shapes
+      function positionInstance(shape, x, y, z) {
+        shape.position.x = x;
+        shape.position.y = y;
+        shape.position.z = z;
+      }
+
+      // make instance auto set scene as parent, adjust that.
+      function updateParent(shape, parent) {
+        scene.remove(shape);
+        parent.add(shape);
+      }
+
+
+     //Camera GUI
+     function updateCamera() {
+      camera.updateProjectionMatrix();
+    }
+ 
+    const gui = new GUI();
+    gui.add(camera, 'fov', 1, 180).onChange(updateCamera);
+
+
+    const shapes = [sun, earth, alien, alienRoot]
+    let angle = 0;
+      //Animation
+      function render(time) {
+        time *= 0.001;  // convert time to seconds
+ 
+        shapes.forEach((shape, ndx) => {
+          const speed = 1 + ndx * .2;
+          const rot = time * speed;
+          shape.rotation.y = rot;
+          if (shape === alien){
+            alien.rotation.x = rot;
+            alien.rotation.z = rot;
+          }
+        });
+
+        negSun.rotation.y = -time * (0.4)
+        alienRoot.rotation.y = -time * (1.2)
+        rocketRoot.rotation.x = -time * (1.8)
+
+        blackHole.rotation.y = time*(0.8)
+        
+        spotHelper.visible = showBeam;
+        spotHelper.update();
+        controls.update();
+
+        renderer.render(scene, camera);
+        requestAnimationFrame(render);
+        }
+
+      requestAnimationFrame(render);
+    }
+
+    main();
+  </script>
+  <script src="GUIHelper.js"></script>
+
+
+  <body>
+    <canvas id="c" height="800" width="1600">
+      Please use a browser that supports "canvas"
+    </canvas>
+    <br>
+
+    <p>CONTROLS: click and drag to orbit camera around sun, scroll to zoom in and out. FOV is adjustable but I don't particularly recommend it.</p>
+    <button id="button" type="button">Toggle SpotLight Visualizer</button>
+    <br>
+    <table>
+      <tr>
+        <td>
+          <p>My primitives are:
+            <li>Sphere</li>
+            <li>Pyramid</li>
+            <li>Cube(You can't see them)</li>
+            <li>Torus Knot</li>
+          </p>
+        </td>
+        <td>
+          <p>My light sources are:
+            <li>Ambient, so you can see skybox</li>
+            <li>Pointlight via Sun</li>
+            <li>Spotlight via Alien</li>
+          </p>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

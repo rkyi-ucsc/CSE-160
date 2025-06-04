@@ -1,0 +1,70 @@
+newmtl aiStandardSurface1SG
+illum 4
+Kd 0.7 0.2 0.2    # Fins
+Ka 0.1 0.1 0.1    # ambient
+Ks 0.5 0.5 0.5    # specular
+Ns 100            # shininess
+
+newmtl aiStandardSurface2SG
+illum 4
+Kd 0.1 0.1 0.1    # Window Rim
+Ka 0.1 0.1 0.1
+Ks 0.5 0.5 0.5
+Ns 100
+
+newmtl aiStandardSurface3SG
+illum 4
+Kd 0.8 0.8 0.8    # Body
+Ka 1 1 1
+Ks 0.5 0.5 0.5
+Ns 100
+map_Kd metal.jpeg
+
+newmtl aiStandardSurface4SG
+illum 4
+Kd 0.7 0.7 0.2    # yellow diffuse
+Ka 0.1 0.1 0.1
+Ks 0.5 0.5 0.5
+Ns 100
+
+newmtl aiStandardSurface5SG
+illum 4
+Kd 0.2 0.7 0.7    # cyan diffuse
+Ka 0.1 0.1 0.1
+Ks 0.5 0.5 0.5
+Ns 100
+
+newmtl aiStandardSurface6SG
+illum 4
+Kd 0.7 0.3 0.1    # Thruster Inside
+Ka 0.1 0.1 0.1
+Ks 0.5 0.5 0.5
+Ns 100
+
+newmtl aiStandardSurface7SG
+illum 4
+Kd 0.5 0.8 0.5    # Window
+Ka 0.1 0.1 0.1
+Ks 0.5 0.5 0.5
+Ns 100
+
+newmtl aiStandardSurface8SG
+illum 4
+Kd 0.0 0.5 0.5    # gray diffuse
+Ka 0.1 0.1 0.1
+Ks 0.5 0.5 0.5
+Ns 100
+
+newmtl aiStandardSurface9SG
+illum 4
+Kd 0.1 0.1 0.1    # dark gray diffuse
+Ka 0.05 0.05 0.05
+Ks 0.5 0.5 0.5
+Ns 100
+
+newmtl initialShadingGroup
+illum 4
+Kd 0.0 0.0 0.0    # light gray (default)
+Ka 0.0 0.0 0.0
+Ks 0.5 0.5 0.5
+Ns 100
