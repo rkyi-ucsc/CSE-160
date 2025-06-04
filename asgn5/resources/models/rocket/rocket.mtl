@@ -22,14 +22,14 @@ map_Kd metal.jpeg
 
 newmtl aiStandardSurface4SG
 illum 4
-Kd 0.7 0.7 0.2    # yellow diffuse
+Kd 0.7 0.7 0.2    # Antennae bulb and thruster trim
 Ka 0.1 0.1 0.1
 Ks 0.5 0.5 0.5
 Ns 100
 
 newmtl aiStandardSurface5SG
 illum 4
-Kd 0.2 0.7 0.7    # cyan diffuse
+Kd 0.7 0.7 0.7    # thruster
 Ka 0.1 0.1 0.1
 Ks 0.5 0.5 0.5
 Ns 100
@@ -50,21 +50,14 @@ Ns 100
 
 newmtl aiStandardSurface8SG
 illum 4
-Kd 0.0 0.5 0.5    # gray diffuse
+Kd 0.0 0.0 1.0    # antennae spiral
 Ka 0.1 0.1 0.1
 Ks 0.5 0.5 0.5
 Ns 100
 
 newmtl aiStandardSurface9SG
 illum 4
-Kd 0.1 0.1 0.1    # dark gray diffuse
+Kd 0.1 0.1 0.1    # antennae
 Ka 0.05 0.05 0.05
-Ks 0.5 0.5 0.5
-Ns 100
-
-newmtl initialShadingGroup
-illum 4
-Kd 0.0 0.0 0.0    # light gray (default)
-Ka 0.0 0.0 0.0
 Ks 0.5 0.5 0.5
 Ns 100
